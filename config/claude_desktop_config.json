@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "simple-mcp-server": {
+      "command": "python",
+      "args": ["path/to/file/main.py"]
+    }
+  }
+}
