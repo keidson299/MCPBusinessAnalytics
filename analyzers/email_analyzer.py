@@ -1,7 +1,7 @@
 """Email analysis functions for business analytics MCP server"""
 
 from typing import Dict, Any, List
-from utils import (
+from core.utils import (
     parse_email_address, parse_recipients, extract_domain,
     extract_key_topics, detect_tone, detect_urgency, extract_action_items
 )

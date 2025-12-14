@@ -2,7 +2,7 @@
 
 from typing import Dict, Any, List, Union
 import json
-from models import SpreadsheetData, CellAnalysis
+from core.models import SpreadsheetData, CellAnalysis
 
 
 def validate_spreadsheet_structure(data: List[Dict[str, Any]]) -> Dict[str, Any]:

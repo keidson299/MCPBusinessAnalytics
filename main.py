@@ -4,14 +4,14 @@ from typing import Dict, Any, List
 from datetime import datetime
 
 # Import email analysis functions
-from email_analyzer import (
+from analyzers.email_analyzer import (
     extract_sender_info,
     extract_recipient_info,
     analyze_email_content
 )
 
 # Import spreadsheet analysis functions
-from spreadsheet_analyzer import (
+from analyzers.spreadsheet_analyzer import (
     validate_spreadsheet_structure,
     analyze_numeric_column,
     detect_patterns,
