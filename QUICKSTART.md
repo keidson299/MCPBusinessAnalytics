@@ -3,7 +3,7 @@
 ## 1. Install Dependencies
 
 ```powershell
-cd d:\VisualStudio\GitProjects\MCPBusinessAnalytics
+cd \path_to_project\MCPBusinessAnalytics
 pip install fastmcp
 ```
 
@@ -28,7 +28,7 @@ Add this:
   "mcpServers": {
     "business-analytics": {
       "command": "python",
-      "args": ["d:\\VisualStudio\\GitProjects\\MCPBusinessAnalytics\\main.py"]
+      "args": ["\\path_to_project\\MCPBusinessAnalytics\\main.py"]
     }
   }
 }

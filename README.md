@@ -32,7 +32,7 @@ A Model Context Protocol (MCP) server for analyzing business emails and spreadsh
 1. **Clone or navigate to the project directory:**
 
    ```bash
-   cd d:\VisualStudio\GitProjects\MCPBusinessAnalytics
+   cd \path_to_project\MCPBusinessAnalytics
    ```
 
 2. **Install dependencies:**
