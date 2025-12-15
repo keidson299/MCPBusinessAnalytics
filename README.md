@@ -72,12 +72,6 @@ The MCP server configuration file is typically located at:
 
 - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
-Or use the provided config template:
-
-```
-config/claude_desktop_config.json
-```
-
 ### Step 2: Update Claude Desktop Configuration
 
 Edit your Claude Desktop config file and add the MCP server:
@@ -234,17 +228,15 @@ MCPBusinessAnalytics/
 ├── main.py                      # Server entry point
 ├── core/                        # Core utilities & models
 │   ├── __init__.py
-│   ├── models.py               # Data classes
-│   └── utils.py                # Shared utilities
+│   ├── models.py                # Data classes
+│   └── utils.py                 # Shared utilities
 ├── analyzers/                   # Analysis modules
 │   ├── __init__.py
-│   ├── email_analyzer.py       # Email analysis functions
-│   └── spreadsheet_analyzer.py # Spreadsheet analysis functions
-├── config/
-│   └── claude_desktop_config.json  # MCP configuration template
+│   ├── email_analyzer.py        # Email analysis functions
+│   └── spreadsheet_analyzer.py  # Spreadsheet analysis functions
 ├── logs/                        # Server logs
 ├── README.md                    # This file
-└── requirements.txt             # Python dependencies
+└── QUICKSTART.md                # Guide for starting the project
 ```
 
 ## Troubleshooting
@@ -261,6 +253,7 @@ MCPBusinessAnalytics/
 - Check the python path in config is accurate
 - Use forward slashes: `d:/path/to/main.py`
 - Restart Claude Desktop completely (not just close)
+- Make sure logs folder exists at %APPDATA%\Local\AnthropicClaude\app-version
 - Check logs folder for error messages
 
 ### Import errors

@@ -1,4 +1,4 @@
-# Quick Start (5 Minutes)
+# Quick Start
 
 ## 1. Install Dependencies
 
@@ -80,5 +80,4 @@ Read [README.md](README.md) for detailed documentation on all available tools.
 ### Troubleshooting
 
 - Server won't start? Check Python is installed: `python --version`
-- Claude doesn't see server? Verify config path and restart Claude completely
-- Still stuck? See [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed troubleshooting
+- Claude doesn't see server? Verify config path and restart Claude completely, may also need to add logs folder to %APPDATA%\Local\AnthropicClaude\app-version
