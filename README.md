@@ -81,7 +81,7 @@ Edit your Claude Desktop config file and add the MCP server:
   "mcpServers": {
     "business-analytics": {
       "command": "python",
-      "args": ["Path To Project\\MCPBusinessAnalytics\\main.py"]
+      "args": ["\\path_to_project\\MCPBusinessAnalytics\\main.py"]
     }
   }
 }
