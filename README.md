@@ -105,25 +105,32 @@ Once connected, Claude will have access to the following tools:
 
 ### Email Analysis Tools
 
-**1. `analyze_business_email` (Comprehensive)**
+**1. `analyze_eml_file`**
+
+- Processes .eml email files and runs comprehensive analysis
+- Input: file path to .eml file
+- Returns: sender info, recipient details, content analysis
+- Automatically extracts all email headers and body content
+
+**2. `analyze_business_email` (Comprehensive)**
 
 - Analyzes all aspects of an email
 - Input: sender, recipients (to, cc, bcc), subject, body
 - Returns: sender info, recipient details, content analysis
 
-**2. `extract_sender_details`**
+**3. `extract_sender_details`**
 
 - Extracts only sender information
 - Input: sender email
 - Returns: name, email, domain
 
-**3. `extract_recipients_details`**
+**4. `extract_recipients_details`**
 
 - Extracts recipient information
 - Input: to, cc, bcc recipients
 - Returns: parsed recipients with domains
 
-**4. `analyze_email_body`**
+**5. `analyze_email_body`**
 
 - Analyzes email content only
 - Input: subject, body
@@ -169,6 +176,17 @@ Once connected, Claude will have access to the following tools:
 - Returns: status, timestamp, capabilities
 
 ## Example Usage in Claude
+
+### Analyzing an .eml File
+
+Ask Claude: "Analyze this email file for me: \path_to_email_file\email.eml"
+
+Claude will use the `analyze_eml_file` tool to:
+
+- Parse the .eml file
+- Extract all headers (from, to, cc, bcc, subject)
+- Extract the email body
+- Run full content analysis
 
 ### Analyzing an Email
 

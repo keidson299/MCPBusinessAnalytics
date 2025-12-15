@@ -1,10 +1,49 @@
 """Email analysis functions for business analytics MCP server"""
 
 from typing import Dict, Any, List
+from datetime import datetime
 from core.utils import (
     parse_email_address, parse_recipients, extract_domain,
     extract_key_topics, detect_tone, detect_urgency, extract_action_items
 )
+
+def analyze_email(
+    email_from: str,
+    email_to: str,
+    email_subject: str,
+    email_body: str,
+    email_cc: str = "",
+    email_bcc: str = ""
+) -> Dict[str, Any]:
+    """
+    Comprehensive analysis of a business email including sender, recipients, and content analysis.
+    
+    Args:
+        email_from: Sender information (e.g., "John Doe <john@company.com>")
+        email_to: Recipients (e.g., "jane@company.com, Bob Smith <bob@company.com>")
+        email_subject: Subject line of the email
+        email_body: Body content of the email
+        email_cc: CC recipients (optional)
+        email_bcc: BCC recipients (optional)
+        
+    Returns:
+        Comprehensive analysis dict with sender, recipients, and content insights
+    """
+    email_data = {
+        'from': email_from,
+        'to': email_to,
+        'cc': email_cc,
+        'bcc': email_bcc,
+        'subject': email_subject,
+        'body': email_body
+    }
+    
+    return {
+        'sender': extract_sender_info(email_data),
+        'recipients': extract_recipient_info(email_data),
+        'content_analysis': analyze_email_content(email_data),
+        'timestamp': datetime.now().isoformat()
+    }
 
 
 def extract_sender_info(email_data: Dict[str, Any]) -> Dict[str, str]:

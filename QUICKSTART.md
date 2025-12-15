@@ -7,7 +7,17 @@ cd d:\VisualStudio\GitProjects\MCPBusinessAnalytics
 pip install fastmcp
 ```
 
-## 2. Update Claude Desktop Config
+## 2. Starting the MCP Server
+
+In a PowerShell terminal run the command:
+
+```powershell
+python main.py
+```
+
+You should see a FastMCP startup text, and no further output as the server communicates through stdin/stdout.
+
+## 3. Update Claude Desktop Config
 
 Edit: `%APPDATA%\Claude\claude_desktop_config.json`
 
@@ -24,17 +34,25 @@ Add this:
 }
 ```
 
-## 3. Restart Claude Desktop
+## 4. Restart Claude Desktop
 
 Close Claude completely and reopen it.
 
-## 4. Test in Claude
+## 5. Test in Claude
 
 Ask: **"What tools are available?"**
 
 You should see email and spreadsheet analysis tools listed.
 
-## 5. Try an Analysis
+## 6. Try an Analysis
+
+**For .eml File:**
+
+```
+Analyze this email file: \path_to_email_file\email.eml
+```
+
+Claude will parse the .eml file and provide full analysis including sender, recipients, and content insights.
 
 **For Email:**
 

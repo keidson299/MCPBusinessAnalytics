@@ -2,12 +2,16 @@ from fastmcp import FastMCP
 import logging
 from typing import Dict, Any, List
 from datetime import datetime
+from email import policy
+from email.parser import BytesParser
+import os
 
 # Import email analysis functions
 from analyzers.email_analyzer import (
     extract_sender_info,
     extract_recipient_info,
-    analyze_email_content
+    analyze_email_content,
+    analyze_email
 )
 
 # Import spreadsheet analysis functions
@@ -22,7 +26,85 @@ from analyzers.spreadsheet_analyzer import (
 app = FastMCP("Business Analytics MCP Server")
 
 
-# ========== EMAIL ANALYSIS TOOLS ==========
+# ========== EMAIL PARSING HELPER ==========
+def parse_eml_file(file_path: str) -> Dict[str, str]:
+    """
+    Parse an .eml file and extract email headers and body.
+    
+    Args:
+        file_path: Path to the .eml file
+        
+    Returns:
+        Dictionary with email fields (from, to, cc, bcc, subject, body)
+        
+    Raises:
+        FileNotFoundError: If the file does not exist
+        ValueError: If the file cannot be parsed as a valid email
+    """
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"Email file not found: {file_path}")
+    
+    if not file_path.lower().endswith('.eml'):
+        raise ValueError(f"File must be an .eml file, got: {file_path}")
+    
+    try:
+        with open(file_path, 'rb') as f:
+            msg = BytesParser(policy=policy.default).parse(f)
+        
+        # Extract headers
+        email_from = msg.get('from', '')
+        email_to = msg.get('to', '')
+        email_cc = msg.get('cc', '') or ''
+        email_bcc = msg.get('bcc', '') or ''
+        email_subject = msg.get('subject', '')
+        
+        # Extract body (handle both plain text and HTML)
+        email_body = ''
+        if msg.is_multipart():
+            for part in msg.iter_parts():
+                content_type = part.get_content_type()
+                if content_type == 'text/plain':
+                    email_body = part.get_content()
+                    break
+                elif content_type == 'text/html' and not email_body:
+                    # Fallback to HTML if no plain text available
+                    email_body = part.get_content()
+        else:
+            email_body = msg.get_content()
+        
+        return {
+            'from': email_from,
+            'to': email_to,
+            'cc': email_cc,
+            'bcc': email_bcc,
+            'subject': email_subject,
+            'body': email_body
+        }
+    except Exception as e:
+        raise ValueError(f"Failed to parse email file: {str(e)}")
+
+
+@app.tool()
+async def analyze_eml_file(file_path: str) -> Dict[str, Any]:
+    """
+    Process an .eml file and run comprehensive email analysis.
+    
+    Args:
+        file_path: Path to the .eml email file
+        
+    Returns:
+        Comprehensive analysis dict with sender, recipients, and content insights
+    """
+    email_data = parse_eml_file(file_path)
+    
+    return analyze_email(
+        email_from=email_data['from'],
+        email_to=email_data['to'],
+        email_subject=email_data['subject'],
+        email_body=email_data['body'],
+        email_cc=email_data['cc'],
+        email_bcc=email_data['bcc']
+    )
 
 @app.tool()
 async def analyze_business_email(
@@ -47,22 +129,14 @@ async def analyze_business_email(
     Returns:
         Comprehensive analysis dict with sender, recipients, and content insights
     """
-    email_data = {
-        'from': email_from,
-        'to': email_to,
-        'cc': email_cc,
-        'bcc': email_bcc,
-        'subject': email_subject,
-        'body': email_body
-    }
-    
-    return {
-        'sender': extract_sender_info(email_data),
-        'recipients': extract_recipient_info(email_data),
-        'content_analysis': analyze_email_content(email_data),
-        'timestamp': datetime.now().isoformat()
-    }
-
+    return analyze_email(
+        email_from=email_from,
+        email_to=email_to,
+        email_subject=email_subject,
+        email_body=email_body,
+        email_cc=email_cc,
+        email_bcc=email_bcc
+    )
 
 @app.tool()
 async def extract_sender_details(email_from: str) -> Dict[str, str]:
